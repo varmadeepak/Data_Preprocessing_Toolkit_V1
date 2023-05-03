@@ -1,0 +1,73 @@
+16-02-2023 19:14:40.59 - INFO - Started validation of input parameters...
+16-02-2023 19:14:40.59 - INFO - Completed validation of input parameters
+16-02-2023 19:14:40.59 - INFO - Started handling of duplicates... Method: "AUTO"
+16-02-2023 19:14:40.62 - DEBUG - Deletion of 1 duplicate(s) succeeded
+16-02-2023 19:14:40.62 - INFO - Completed handling of duplicates in 0.025599 seconds
+16-02-2023 19:14:40.62 - INFO - Started handling of missing values...
+16-02-2023 19:14:40.65 - INFO - Found a total of 108 missing value(s)
+16-02-2023 19:14:40.70 - INFO - Started handling of NUMERICAL missing values... Method: "MEAN"
+16-02-2023 19:14:40.70 - INFO - Started handling of CATEGORICAL missing values... Method: "MOST_FREQUENT"
+16-02-2023 19:14:40.73 - DEBUG - MOST_FREQUENT imputation of 54 value(s) succeeded for feature "Operating Airline IATA Code"
+16-02-2023 19:14:40.76 - DEBUG - MOST_FREQUENT imputation of 54 value(s) succeeded for feature "Published Airline IATA Code"
+16-02-2023 19:14:40.77 - INFO - Completed handling of missing values in 0.156928 seconds
+16-02-2023 19:14:40.77 - INFO - Started handling of outliers... Method: "AUTO"
+16-02-2023 19:14:42.76 - DEBUG - Outlier imputation of 2431 value(s) succeeded for feature "Passenger Count"
+16-02-2023 19:14:45.69 - DEBUG - Outlier imputation of 2435 value(s) succeeded for feature "Adjusted Passenger Count"
+16-02-2023 19:14:45.70 - INFO - Completed handling of outliers in 4.929949 seconds
+16-02-2023 19:14:45.70 - INFO - Started conversion of DATETIME features... Granularity: auto
+16-02-2023 19:14:45.72 - INFO - Completed conversion of DATETIME features in 0.0171 seconds
+16-02-2023 19:14:45.72 - INFO - Started encoding categorical features... Method: "AUTO"
+16-02-2023 19:14:45.73 - DEBUG - Encoding to ONEHOT succeeded for feature "Terminal"
+16-02-2023 19:14:45.73 - DEBUG - Encoding to ONEHOT succeeded for feature "GEO Region"
+16-02-2023 19:14:45.73 - DEBUG - Encoding to ONEHOT succeeded for feature "GEO Summary"
+16-02-2023 19:14:45.75 - DEBUG - Encoding to ONEHOT succeeded for feature "Adjusted Activity Type Code"
+16-02-2023 19:14:45.75 - DEBUG - Encoding skipped for feature "Operating Airline IATA Code"
+16-02-2023 19:14:45.76 - DEBUG - Encoding to ONEHOT succeeded for feature "Price Category Code"
+16-02-2023 19:14:45.77 - DEBUG - Encoding skipped for feature "Operating Airline"
+16-02-2023 19:14:45.77 - DEBUG - Encoding skipped for feature "Published Airline"
+16-02-2023 19:14:45.77 - DEBUG - Encoding skipped for feature "Published Airline IATA Code"
+16-02-2023 19:14:45.78 - DEBUG - Encoding to ONEHOT succeeded for feature "Boarding Area"
+16-02-2023 19:14:45.78 - DEBUG - Encoding to LABEL succeeded for feature "Month"
+16-02-2023 19:14:45.78 - DEBUG - Encoding to ONEHOT succeeded for feature "Activity Type Code"
+16-02-2023 19:14:45.78 - INFO - Completed encoding of categorical features in 0.068017 seconds
+16-02-2023 19:14:45.78 - INFO - Started feature type conversion...
+16-02-2023 19:14:45.80 - DEBUG - Conversion to type INT succeeded for feature "index"
+16-02-2023 19:14:45.80 - DEBUG - Conversion to type INT succeeded for feature "Activity Period"
+16-02-2023 19:14:45.80 - DEBUG - Conversion to type INT succeeded for feature "Passenger Count"
+16-02-2023 19:14:45.80 - DEBUG - Conversion to type INT succeeded for feature "Adjusted Passenger Count"
+16-02-2023 19:14:45.80 - DEBUG - Conversion to type INT succeeded for feature "Year"
+16-02-2023 19:14:45.81 - DEBUG - Conversion to type INT succeeded for feature "Terminal_International"
+16-02-2023 19:14:45.81 - DEBUG - Conversion to type INT succeeded for feature "Terminal_Other"
+16-02-2023 19:14:45.81 - DEBUG - Conversion to type INT succeeded for feature "Terminal_Terminal 1"
+16-02-2023 19:14:45.81 - DEBUG - Conversion to type INT succeeded for feature "Terminal_Terminal 2"
+16-02-2023 19:14:45.81 - DEBUG - Conversion to type INT succeeded for feature "Terminal_Terminal 3"
+16-02-2023 19:14:45.81 - DEBUG - Conversion to type INT succeeded for feature "GEO Region_Asia"
+16-02-2023 19:14:45.83 - DEBUG - Conversion to type INT succeeded for feature "GEO Region_Australia / Oceania"
+16-02-2023 19:14:45.83 - DEBUG - Conversion to type INT succeeded for feature "GEO Region_Canada"
+16-02-2023 19:14:45.83 - DEBUG - Conversion to type INT succeeded for feature "GEO Region_Central America"
+16-02-2023 19:14:45.83 - DEBUG - Conversion to type INT succeeded for feature "GEO Region_Europe"
+16-02-2023 19:14:45.84 - DEBUG - Conversion to type INT succeeded for feature "GEO Region_Mexico"
+16-02-2023 19:14:45.84 - DEBUG - Conversion to type INT succeeded for feature "GEO Region_Middle East"
+16-02-2023 19:14:45.84 - DEBUG - Conversion to type INT succeeded for feature "GEO Region_South America"
+16-02-2023 19:14:45.84 - DEBUG - Conversion to type INT succeeded for feature "GEO Region_US"
+16-02-2023 19:14:45.84 - DEBUG - Conversion to type INT succeeded for feature "GEO Summary_Domestic"
+16-02-2023 19:14:45.84 - DEBUG - Conversion to type INT succeeded for feature "GEO Summary_International"
+16-02-2023 19:14:45.86 - DEBUG - Conversion to type INT succeeded for feature "Adjusted Activity Type Code_Deplaned"
+16-02-2023 19:14:45.86 - DEBUG - Conversion to type INT succeeded for feature "Adjusted Activity Type Code_Enplaned"
+16-02-2023 19:14:45.86 - DEBUG - Conversion to type INT succeeded for feature "Adjusted Activity Type Code_Thru / Transit * 2"
+16-02-2023 19:14:45.86 - DEBUG - Conversion to type INT succeeded for feature "Price Category Code_Low Fare"
+16-02-2023 19:14:45.86 - DEBUG - Conversion to type INT succeeded for feature "Price Category Code_Other"
+16-02-2023 19:14:45.88 - DEBUG - Conversion to type INT succeeded for feature "Boarding Area_A"
+16-02-2023 19:14:45.88 - DEBUG - Conversion to type INT succeeded for feature "Boarding Area_B"
+16-02-2023 19:14:45.88 - DEBUG - Conversion to type INT succeeded for feature "Boarding Area_C"
+16-02-2023 19:14:45.88 - DEBUG - Conversion to type INT succeeded for feature "Boarding Area_D"
+16-02-2023 19:14:45.88 - DEBUG - Conversion to type INT succeeded for feature "Boarding Area_E"
+16-02-2023 19:14:45.88 - DEBUG - Conversion to type INT succeeded for feature "Boarding Area_F"
+16-02-2023 19:14:45.89 - DEBUG - Conversion to type INT succeeded for feature "Boarding Area_G"
+16-02-2023 19:14:45.89 - DEBUG - Conversion to type INT succeeded for feature "Boarding Area_Other"
+16-02-2023 19:14:45.89 - DEBUG - Conversion to type INT succeeded for feature "Month_lab"
+16-02-2023 19:14:45.89 - DEBUG - Conversion to type INT succeeded for feature "Activity Type Code_Deplaned"
+16-02-2023 19:14:45.91 - DEBUG - Conversion to type INT succeeded for feature "Activity Type Code_Enplaned"
+16-02-2023 19:14:45.91 - DEBUG - Conversion to type INT succeeded for feature "Activity Type Code_Thru / Transit"
+16-02-2023 19:14:45.91 - INFO - Completed feature type conversion for 38 feature(s) in 0.117599 seconds
+16-02-2023 19:14:45.91 - INFO - AutoClean process completed in 5.32631 seconds
