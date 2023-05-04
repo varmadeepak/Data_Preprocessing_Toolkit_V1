@@ -71,6 +71,9 @@ image_aug_URI = "https://varmadeepak-image-aug-image-aug-pmo6u0.streamlit.app/"
 
 if st.button("Image_Augmentation ?"):
          webbrowser.open_new_tab(image_aug_URI)
+if st.button("Open Webpage"):
+    # Use the `target="_blank"` attribute to open the URL in a new tab
+    st.markdown(f'<a href="{image_aug_URI}" target="_blank">Click here to open the webpage</a>', unsafe_allow_html=True)
 def download_csv_data(csv):
     return st.download_button(
                  label="Download data as CSV",
