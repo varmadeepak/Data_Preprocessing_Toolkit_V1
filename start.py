@@ -45,7 +45,6 @@ st.markdown('''
 This is the part of **Data Pre-processing toolkit** created in Streamlit. 
 **Credit:** App built in `Python` + `Streamlit` by Deepak and Nehansh.
 ''')
-st.header('Data Cleaning functionality')
 st.header('Upload your CSV file')
 uploaded_file = st.file_uploader('upload input csv file')
 
@@ -67,13 +66,7 @@ def pre_process(csv,dups,missing,out,encoding,miss_cat,dt):
      st.write(pipeline.output)
     #  display_output(pipeline.output)
      return csv_file
-image_aug_URI = "https://varmadeepak-image-aug-image-aug-pmo6u0.streamlit.app/"
 
-# if st.button("Image_Augmentation ?"):
-#          webbrowser.open_new_tab(image_aug_URI)
-if st.button("Image_Augmentation ?"):
-    # Use the `target="_blank"` attribute to open the URL in a new tab
-    st.markdown(f'<a href="{image_aug_URI}" target="_blank">Click here to open the webpage</a>', unsafe_allow_html=True)
 def download_csv_data(csv):
     return st.download_button(
                  label="Download data as CSV",
@@ -93,120 +86,149 @@ if uploaded_file is not None:
     def read_csv_file(csv):
         return pd.read_csv(csv)
     
-   
-    def load_lottieurl(url):
-        r = requests.get(url)
-        if r.status_code != 200:
-            return None
-        return r.json()
 
-    lottie_coding = load_lottieurl("https://assets1.lottiefiles.com/packages/lf20_49rdyysj.json")
+    def dataclean():
+        st.header('Data Cleaning functionality')
+        def load_lottieurl(url):
+            r = requests.get(url)
+            if r.status_code != 200:
+                return None
+            return r.json()
 
-    with st.sidebar.header('**visualize**'):
-        st_lottie(lottie_coding, height=300, key="coding")
+        lottie_coding = load_lottieurl("https://assets1.lottiefiles.com/packages/lf20_49rdyysj.json")
 
-        st.sidebar.header("Basic Visualization")
-        if st.sidebar.checkbox("Columns Names"):
-            st.sidebar.write(df.columns)
+        with st.sidebar.header('**visualize**'):
+            st_lottie(lottie_coding, height=300, key="coding")
 
-        # Show Shape of Dataset
-        if st.sidebar.checkbox("Shape of Dataset"):
-            st.sidebar.write(df.shape)
+            st.sidebar.header("Basic Visualization")
+            if st.sidebar.checkbox("Columns Names"):
+                st.sidebar.write(df.columns)
+
+            # Show Shape of Dataset
+            if st.sidebar.checkbox("Shape of Dataset"):
+                st.sidebar.write(df.shape)
+            
+            # Show Columns By Selection
+            if st.sidebar.checkbox("Select Columns To Show"):
+                all_columns = df.columns.tolist()
+                selected_columns = st.sidebar.multiselect('Select',all_columns)
+                new_df = df[selected_columns]
+                st.sidebar.dataframe(new_df)
+
+            # Value Counts
+            if st.sidebar.checkbox("Value Counts"):
+                st.sidebar.text("Value Counts By Target/Class")
+                st.sidebar.write(df.iloc[:,-1].value_counts())
+
+            # Summary
+            if st.sidebar.checkbox("Summary"):
+                st.sidebar.write(df.describe())
+
+        st.header("Want to analyze the data?")
+        if st.button('Analyze Data ? '):
+            pr = ProfileReport(df,explorative=True)
+            st.header('**Pandas Profiling Report**')
+            st_profile_report(pr)
+
+        co1,co2,co3=st.columns(3)
+
+        with co1:
+            st.header("Check for any missing values")
+            if st.checkbox("missing values"):
+                st.write(df.isnull().sum())
+
+        with co2:
+            st.header("Check for Duplicates")
+            if st.checkbox("Duplicates"):
+                st.write(df[df.duplicated()])
+
+        with co3:
+            st.header("check for outliers")
+            if st.checkbox("outliers"):
+                
+                Q1 = df.quantile(0.25)
+                Q3 = df.quantile(0.75)
+                IQR = Q3 - Q1
+                st.write(IQR)
+
+        if st.header("Data Cleaning Functionalities"):
+            option_clean = st.selectbox(
+            'Handle all  Data Cleaning functionalities',
+            ('--select option--','Yes','No'))
+            col1, col2, col3 = st.columns(3)
+            col4, col5, col6 = st.columns(3)
+                
+            if option_clean == 'Yes':
+                with col1:
+                    option_dups = st.selectbox('Duplicates?',('auto', False))
+                with col2:
+                    option_miss = st.selectbox('Missing Values (Numeric)?',('mean', 'median', 'most_frequent','linreg','knn',False))
+                with col3:
+                    option_str = st.selectbox('Missing Values(String)?',('most_frequent','logreg','knn',False))
+                with col4:    
+                    option_out = st.selectbox('Outliers?',('auto', 'winx', 'delete',False))
+                with col5:
+                    option_enc = st.selectbox('Encode Data?',('auto', '[onehot]', '[label]',False))
+                with col6:
+                    option_dt = st.selectbox('Datetime?',('auto', 'D', 'M','Y',False))
+                if st.button("Clean"):
+                    csv_temp = pre_process(uploaded_file,option_dups,option_miss,option_out,option_enc,option_str,option_dt)
+                    download_csv_data(csv_temp)
+
+
+        st.header("Data Normalization")
         
-        # Show Columns By Selection
-        if st.sidebar.checkbox("Select Columns To Show"):
-            all_columns = df.columns.tolist()
-            selected_columns = st.sidebar.multiselect('Select',all_columns)
-            new_df = df[selected_columns]
-            st.sidebar.dataframe(new_df)
+        c1,c2=st.columns(2)
+        with c1:
+            if st.checkbox("Min-Max Normalization"):
+                    df=df.select_dtypes(include='number')
+                    all_col = df.columns.tolist()
+                    selected_col = st.multiselect('Select',all_col)
+                    new_df = df[selected_col]
+                    if st.button("normalize"):
+                        d = preprocessing.normalize(new_df)
+                #d_df = pd.DataFrame(df, columns=index)
+                        #st.write(d)
+                        st.dataframe(d)
+        with c2:
+            if st.checkbox("Z-score Normalization"):
+                    df=df.select_dtypes(include='number')
+                    all_col = df.columns.tolist()
+                    selected_col1 = st.multiselect('Select',all_col)
+                    new_df = df[selected_col1]
+                    if st.button("normalize"):
+                        d = stats.zscore(new_df)
+                #d_df = pd.DataFrame(df, columns=index)
+                        #st.write(d)
+                        st.dataframe(d)
 
-        # Value Counts
-        if st.sidebar.checkbox("Value Counts"):
-            st.sidebar.text("Value Counts By Target/Class")
-            st.sidebar.write(df.iloc[:,-1].value_counts())
+    header_style = """
+    <style>
+        .streamlit-tabs .streamlit-tabs-header .streamlit-tab-label {
+            font-size: 24px;
+        }
+    </style>
+"""
 
-        # Summary
-        if st.sidebar.checkbox("Summary"):
-            st.sidebar.write(df.describe())
-
-    st.header("Want to analyze the data?")
-    if st.button('Analyze Data ? '):
-        pr = ProfileReport(df,explorative=True)
-        st.header('**Pandas Profiling Report**')
-        st_profile_report(pr)
-
-    co1,co2,co3=st.columns(3)
-
-    with co1:
-        st.header("Check for any missing values")
-        if st.checkbox("missing values"):
-            st.write(df.isnull().sum())
-
-    with co2:
-        st.header("Check for Duplicates")
-        if st.checkbox("Duplicates"):
-            st.write(df[df.duplicated()])
-
-    with co3:
-        st.header("check for outliers")
-        if st.checkbox("outliers"):
-            
-            Q1 = df.quantile(0.25)
-            Q3 = df.quantile(0.75)
-            IQR = Q3 - Q1
-            st.write(IQR)
-
-    if st.header("Data Cleaning Functionalities"):
-        option_clean = st.selectbox(
-        'Handle all  Data Cleaning functionalities',
-        ('--select option--','Yes','No'))
-        col1, col2, col3 = st.columns(3)
-        col4, col5, col6 = st.columns(3)
-            
-        if option_clean == 'Yes':
-            with col1:
-                option_dups = st.selectbox('Duplicates?',('auto', False))
-            with col2:
-                option_miss = st.selectbox('Missing Values (Numeric)?',('mean', 'median', 'most_frequent','linreg','knn',False))
-            with col3:
-                option_str = st.selectbox('Missing Values(String)?',('most_frequent','logreg','knn',False))
-            with col4:    
-                option_out = st.selectbox('Outliers?',('auto', 'winx', 'delete',False))
-            with col5:
-                option_enc = st.selectbox('Encode Data?',('auto', '[onehot]', '[label]',False))
-            with col6:
-                option_dt = st.selectbox('Datetime?',('auto', 'D', 'M','Y',False))
-            if st.button("Clean"):
-                csv_temp = pre_process(uploaded_file,option_dups,option_miss,option_out,option_enc,option_str,option_dt)
-                download_csv_data(csv_temp)
-
-
-    st.header("Data Normalization")
+# Display CSS styles using st.markdown()
+    st.markdown(header_style, unsafe_allow_html=True)
+    tab1,tab2,tab3=st.tabs(["Data Cleaning","Image Augmentation","Text EDA"])
     
-    c1,c2=st.columns(2)
-    with c1:
-        if st.checkbox("Min-Max Normalization"):
-                df=df.select_dtypes(include='number')
-                all_col = df.columns.tolist()
-                selected_col = st.multiselect('Select',all_col)
-                new_df = df[selected_col]
-                if st.button("normalize"):
-                    d = preprocessing.normalize(new_df)
-            #d_df = pd.DataFrame(df, columns=index)
-                    #st.write(d)
-                    st.dataframe(d)
-    with c2:
-        if st.checkbox("Z-score Normalization"):
-                df=df.select_dtypes(include='number')
-                all_col = df.columns.tolist()
-                selected_col1 = st.multiselect('Select',all_col)
-                new_df = df[selected_col1]
-                if st.button("normalize"):
-                    d = stats.zscore(new_df)
-            #d_df = pd.DataFrame(df, columns=index)
-                    #st.write(d)
-                    st.dataframe(d)
+    with tab1:
+        if st.button("Data Cleaning?"):
+            dataclean()
+
+    with tab2:
+        if st.button("Image_Augmentation ?"):
+                image_aug_URI = "https://varmadeepak-image-aug-image-aug-pmo6u0.streamlit.app/"
+                webbrowser.open_new_tab(image_aug_URI)
     
+    with tab3:
+        if st.button("Text EDA ?"):
+                Text_URL = "https://varmadeepak-image-aug-image-aug-pmo6u0.streamlit.app/"
+                webbrowser.open_new_tab(Text_URL)
+
+        
 else:
      st.info('Awaiting for CSV file to be uploaded.')
      
