@@ -67,11 +67,14 @@ def pre_process(csv,dups,missing,out,encoding,miss_cat,dt):
     #  display_output(pipeline.output)
      return csv_file
 image_aug_URI = "https://varmadeepak-image-aug-image-aug-pmo6u0.streamlit.app/"
+text_eda_URI = "https://varmadeepak-textanalyzer-app-jhuzko.streamlit.app/"
 
 # if st.button("Image_Augmentation ?"):
 #          webbrowser.open_new_tab(image_aug_URI)
 if st.button("Image_Augmentation"):
      st.markdown(f'<a href="{image_aug_URI}" target="_blank">Click here to open the webpage</a>', unsafe_allow_html=True)
+if st.button("Text_EDA"):
+    st.markdown(f'<a href="{text_eda_URI}" target="_blank">Click here to open the webpage</a>', unsafe_allow_html=True)
 def download_csv_data(csv):
     return st.download_button(
                  label="Download data as CSV",
