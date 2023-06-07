@@ -40,10 +40,17 @@ st.markdown("""
 st.markdown(" ")
 st.markdown(" ")
 st.markdown("***")
-st.markdown('''
+st.markdown(''' 
 This is the part of **Data Pre-processing toolkit** created in Streamlit. 
 **Credit:** App built in `Python` + `Streamlit` by Deepak and Nehansh.
 ''')
+st.markdown(" ")
+icol1,icol2=st.columns(2)
+with icol1:
+   st.markdown(''' 🌆⤵ <p class="big-font"> **For**  `IMAGE AUGMENTATION :` [click for image augmentation](https://varmadeepak-image-aug-image-aug-pmo6u0.streamlit.app/)</p> ''', unsafe_allow_html=True)
+with icol2: 
+    st.markdown(''' 📑⤵ <p class="big-font"> **For**  `TEXT EDA :` [click for Text EDA](https://varmadeepak-textanalyzer-app-jhuzko.streamlit.app/)</p> ''', unsafe_allow_html=True)
+
 st.header('Data Cleaning functionality')
 st.header('Upload your CSV file')
 uploaded_file = st.file_uploader('upload input csv file')
@@ -66,15 +73,20 @@ def pre_process(csv,dups,missing,out,encoding,miss_cat,dt):
      st.write(pipeline.output)
     #  display_output(pipeline.output)
      return csv_file
-image_aug_URI = "https://varmadeepak-image-aug-image-aug-pmo6u0.streamlit.app/"
-text_eda_URI = "https://varmadeepak-textanalyzer-app-jhuzko.streamlit.app/"
 
-# if st.button("Image_Augmentation ?"):
-#          webbrowser.open_new_tab(image_aug_URI)
-if st.button("Image_Augmentation"):
-     st.markdown(f'<a href="{image_aug_URI}" target="_blank">Click here to open the webpage</a>', unsafe_allow_html=True)
-if st.button("Text_EDA"):
-    st.markdown(f'<a href="{text_eda_URI}" target="_blank">Click here to open the webpage</a>', unsafe_allow_html=True)
+st.markdown("""
+<style>
+.big-font {
+    font-size:20px !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+#st.markdown(''' 🌆⤵ <p class="big-font"> **For**  `IMAGE AUGMENTATION :` [click for image augmentation](https://varmadeepak-image-aug-image-aug-pmo6u0.streamlit.app/)</p> ''', unsafe_allow_html=True)
+#st.markdown(''' 📑⤵ <p class="big-font"> **For**  `TEXT EDA :` [click for Text EDA](https://varmadeepak-textanalyzer-app-jhuzko.streamlit.app/)</p> ''', unsafe_allow_html=True)
+
+
+
 def download_csv_data(csv):
     return st.download_button(
                  label="Download data as CSV",
@@ -149,7 +161,7 @@ if uploaded_file is not None:
             st.write(df[df.duplicated()])
 
     with co3:
-        st.header("check for outliers")
+        st.header("Check for Outliers")
         if st.checkbox("outliers"):
             
             Q1 = df.quantile(0.25)
