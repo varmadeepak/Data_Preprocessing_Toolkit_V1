@@ -47,9 +47,9 @@ This is the part of **Data Pre-processing toolkit** created in Streamlit.
 st.markdown(" ")
 icol1,icol2=st.columns(2)
 with icol1:
-   st.markdown(''' 🌆⤵ <p class="big-font"> **For**  `IMAGE AUGMENTATION :` [click for image augmentation](https://varmadeepak-image-aug-image-aug-pmo6u0.streamlit.app/)</p> ''', unsafe_allow_html=True)
+   st.markdown(''' 🌆⤵ <p class="big-font"> **For**  `IMAGE AUGMENTATION :` [click for image augmentation](https://image-aug.streamlit.app/)</p> ''', unsafe_allow_html=True)
 with icol2: 
-    st.markdown(''' 📑⤵ <p class="big-font"> **For**  `TEXT EDA :` [click for Text EDA](https://varmadeepak-textanalyzer-app-jhuzko.streamlit.app/)</p> ''', unsafe_allow_html=True)
+    st.markdown(''' 📑⤵ <p class="big-font"> **For**  `TEXT EDA :` [click for Text EDA](https://texteda.streamlit.app/)</p> ''', unsafe_allow_html=True)
 
 st.header('Data Cleaning functionality')
 st.header('Upload your CSV file')
